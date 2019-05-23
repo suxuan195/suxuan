@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#box{
+				padding-top: 80px;
+				width: 640px;
+				height: 500px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			ul{
+				position: relative;
+			}
+			li{
+				list-style: none;
+				width: 640px;
+				height: 500px;
+				overflow: hidden;
+				position: absolute;
+			}
+			img{
+				display: block;
+				border: 0;
+				width: 640px;
+				height: 500px;
+				transform: scale(1.1);
+				transition:opacity 1s linear,transform 9s linear;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li><img src="img/1.jpg" alt=""></li>
+				<li><img src="img/2.jpg" alt=""></li>
+				<li><img src="img/3.jpg" alt=""></li>
+			</ul>
+		</div>
+	</body>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#box").find("li").eq(0).show().siblings().hide();
+			getNum(0);
+			var time=null;
+			var i=1;
+			time=setInterval(function(){
+				$("#box").find("li").eq(i).fadeIn(1000).siblings().fadeOut(3000);
+				console.log($($("#box").find("li").eq(i).children("img")[0]).css("transform"));
+				if($($("#box").find("li").eq(i).children("img")[0]).css("transform")=="matrix(1, 0, 0, 1, 0, 0)")
+				{
+					$($("#box").find("li").eq(i).children("img")[0]).css({
+						transform:"scale(1.1)"
+					})
+				}else{
+					getNum(i);
+				}
+				i++;
+				if(i>$("#box").find("li").length-1)
+				{
+					i=0;
+				}
+			},8000);
+		})
+		function getNum(i){
+			var num=Math.ceil(Math.random()*4);
+			switch (num){
+				case 1:
+				$("#box").find("li").eq(i).children("img").css({
+					transformOrigin:"left top 0",
+					transform:"scale(1)"
+				});
+					break;
+				case 2:
+				$("#box").find("li").eq(i).children("img").css({
+					transformOrigin:"right top 0",
+					transform:"scale(1)"
+				});
+					break;
+				case 3:
+				$("#box").find("li").eq(i).children("img").css({
+					transformOrigin:"left bottom 0",
+					transform:"scale(1)"
+				});
+					break;
+				case 4:
+				$("#box").find("li").eq(i).children("img").css({
+					transformOrigin:"right bottom 0",
+					transform:"scale(1)"
+				});
+					break;
+			}
+		}
+	</script>
+</html>
